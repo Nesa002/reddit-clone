@@ -3,10 +3,7 @@ package com.redditclone.app.user.domain;
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.subreddit.domain.Subreddit;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,8 +13,8 @@ import java.util.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
+@Getter
 @Table(name = "Users")
 public class User implements UserDetails {
     @Id
