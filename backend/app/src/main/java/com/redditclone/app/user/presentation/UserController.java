@@ -2,16 +2,14 @@ package com.redditclone.app.user.presentation;
 
 import com.redditclone.app.shared.security.AuthService;
 import com.redditclone.app.user.application.LoginRequestDTO;
+import com.redditclone.app.user.application.PasswordChangeRequestDTO;
 import com.redditclone.app.user.application.RegistrationRequestDTO;
 import com.redditclone.app.user.domain.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/users")
@@ -35,6 +33,12 @@ public class UserController {
     public ResponseEntity<String> loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
         String token = authService.loginUser(loginRequest);
         return ResponseEntity.ok(token);
+    }
+
+    @PutMapping("/changePassword")
+    public ResponseEntity<Void> changePassword(@RequestBody PasswordChangeRequestDTO passwordChangeDTO) {
+        userService.changePassword(passwordChangeDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }

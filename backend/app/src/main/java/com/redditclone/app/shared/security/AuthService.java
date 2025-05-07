@@ -34,9 +34,7 @@ public class AuthService {
 
             User user = (User) userService.loadUserByUsername(loginRequest.getUsername());
 
-            String token = jwtService.generateToken(user);
-
-            return token;
+            return jwtService.generateToken(user);
         } catch (AuthenticationException ex) {
             throw new RuntimeException("Invalid username or password", ex);
         }

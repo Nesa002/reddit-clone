@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.security.auth.login.AccountNotFoundException;
 import java.util.Optional;
 
 @Service
@@ -53,6 +54,20 @@ public class UserServiceImpl implements UserService {
         user.setPassword(encodedPassword);
 
         userRepository.save(user);
+    }
+
+    @Override
+    public void changePassword(PasswordChangeRequestDTO passwordChangeRequestDTO) {
+        Optional<User> userOptional=userRepository.findById(passwordChangeRequestDTO.getId());
+
+        if (userOptional.isEmpty()) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        String encodedPassword = bCryptPasswordEncoder.encode(passwordChangeRequestDTO.getPassword());
+        User user=userOptional.get();
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+
     }
 
 
