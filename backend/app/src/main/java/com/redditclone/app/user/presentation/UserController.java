@@ -1,6 +1,8 @@
 package com.redditclone.app.user.presentation;
 
-import com.redditclone.app.user.application.UserRegistrationRequest;
+import com.redditclone.app.shared.security.AuthService;
+import com.redditclone.app.user.application.LoginRequestDTO;
+import com.redditclone.app.user.application.RegistrationRequestDTO;
 import com.redditclone.app.user.domain.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -16,16 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 public class UserController {
     private final UserService userService;
+    private final AuthService authService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AuthService authService) {
         this.userService = userService;
+        this.authService = authService;
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<Void> registerUser(@Valid @RequestBody UserRegistrationRequest registrationRequest) {
+    public ResponseEntity<Void> registerUser(@Valid @RequestBody RegistrationRequestDTO registrationRequest) {
         userService.registerUser(registrationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
+        String token = authService.loginUser(loginRequest);
+        return ResponseEntity.ok(token);
+    }
 
 }

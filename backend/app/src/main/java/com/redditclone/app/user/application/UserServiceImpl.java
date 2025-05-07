@@ -2,11 +2,17 @@ package com.redditclone.app.user.application;
 
 import com.redditclone.app.shared.exception.DuplicateEmailException;
 import com.redditclone.app.shared.exception.DuplicateUsernameException;
+import com.redditclone.app.shared.security.AuthService;
+import com.redditclone.app.shared.security.JwtService;
 import com.redditclone.app.user.domain.User;
 import com.redditclone.app.user.domain.UserRepository;
 import com.redditclone.app.user.domain.UserRole;
 import com.redditclone.app.user.domain.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void registerUser(UserRegistrationRequest registrationRequest) {
+    public void registerUser(RegistrationRequestDTO registrationRequest) {
         boolean usernameExists = userRepository.findByUsername(registrationRequest.getUsername()).isPresent();
         if(usernameExists) {
             throw new DuplicateUsernameException("Username already exists");
@@ -49,8 +55,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
         if (user.isPresent()) {
             return user.get();
