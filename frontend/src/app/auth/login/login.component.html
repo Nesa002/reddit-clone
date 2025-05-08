@@ -1,0 +1,22 @@
+<div class="overlay" *ngIf="modalService.isOpen$ | async" (click)="close()"></div>
+<div class="modal" *ngIf="modalService.isOpen$ | async">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h1 class="modal-title">Log In</h1>
+    <p class="modal-info">By continuing, you agree to our User Agreement and acknowledge that you understand the Privacy Policy.</p>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <input formControlName="username" placeholder="Username" (focus)="loginForm.get('username')?.markAsUntouched()">
+        <div class="input-warning" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+          Please fill out this field.
+        </div>
+      
+        <input type="password" formControlName="password" placeholder="Password" (focus)="loginForm.get('password')?.markAsUntouched()">
+        <div class="input-warning" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+          Please fill out this field.
+        </div>
+        <p class="modal-info">New to Reddit? Sign Up</p>
+        <div class="button-wrapper">
+          <button type="submit" [disabled]="loginForm.invalid">Log In</button>
+        </div>
+      </form>
+  </div>
+</div>

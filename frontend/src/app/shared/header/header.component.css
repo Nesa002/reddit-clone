@@ -1,0 +1,13 @@
+header {
+    padding: 1rem;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: flex-end;
+  }
+button {
+background-color: #0079d3;
+color: white;
+border: none;
+padding: 0.5rem 1rem;
+border-radius: 4px;
+}
