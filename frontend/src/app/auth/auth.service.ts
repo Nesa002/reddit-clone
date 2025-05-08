@@ -13,7 +13,7 @@ export class AuthService {
 
   login(LoginRequestDTO: LoginRequestDTO) {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
+    
     return this.httpClient.post<{ token: string }>(this.apiUrl + "/login", LoginRequestDTO, {headers}).pipe();
   }
 

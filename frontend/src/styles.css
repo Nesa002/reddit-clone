@@ -3,8 +3,12 @@
 @import '@fontsource/roboto/500.css';
 @import '@fontsource/roboto/700.css';
 
+html, body { height: 100%; }
+
 body {
     font-family: Roboto, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--color-neutral-background);
+    margin: 0; 
 }
 :root {
 
@@ -18,6 +22,7 @@ body {
     --color-neutral-content-strong: #EEF1F3;
     --color-danger-content-hover: #23272a;
     --color-danger-plain: #d93900;
+    --color-caution-onBackground: #3e4142;
 
     
     /* Text Colors */
@@ -68,5 +73,4 @@ body {
     padding-left: 0.5rem;
     margin-left: 2.7rem;
   }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  
