@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("api/users")
 @Validated
@@ -30,9 +33,11 @@ public class UserController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<String> loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
+    public ResponseEntity<Object> loginUser(@Valid @RequestBody LoginRequestDTO loginRequest) {
         String token = authService.loginUser(loginRequest);
-        return ResponseEntity.ok(token);
+        Map<String, String> response = new HashMap<>();
+        response.put("token", token);
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/changePassword")
