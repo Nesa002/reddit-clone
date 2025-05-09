@@ -12,7 +12,7 @@ import { ToastService } from '../toast/toast.service';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  isDropdownOpen: boolean = true;
+  isDropdownOpen: boolean = false;
 
   constructor(
     private authService: AuthService,

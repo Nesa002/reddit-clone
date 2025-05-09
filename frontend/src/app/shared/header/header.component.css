@@ -31,7 +31,7 @@ header {
 }
 
 .search-bar-container {
-  width: 40%;
+  width: 36%;
   position: relative;
   display: flex;
   align-items: center;
@@ -61,7 +61,7 @@ header {
   top: 57px;
   right: 0;
   width: 200px;
-  background-color: var(--color-secondary-background);
+  background-color: var(--color-neutral-background-container);
   color: var(--muted-text-dark);
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
