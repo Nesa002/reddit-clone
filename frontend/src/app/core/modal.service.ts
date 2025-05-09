@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,16 @@ export class ModalService {
   private isLogin = new BehaviorSubject<boolean>(true);
   isLogin$ = this.isLogin.asObservable()
 
-  constructor() {
-    const jwtToken = localStorage.getItem('jwt');
-    if (!jwtToken) {
+  constructor(private authService: AuthService) {
+    this.checkJwt();
+  }
+
+  private checkJwt(): void {
+    if (!this.authService.token) {
+      console.log('No valid JWT found. Opening modal.');
       this.isOpenSubject.next(true);
+    } else {
+      console.log('Valid JWT found. Modal remains closed.');
     }
   }
 

@@ -28,8 +28,14 @@ export class AuthService {
     localStorage.removeItem('jwt');
   }
 
-  get jwt() {
-    return localStorage.getItem('jwt');
+  get token(): string | null {
+    const token = localStorage.getItem('jwt');
+    if (token && this.isTokenExpired(token)) {
+      console.log('Removing expired JWT');
+      localStorage.removeItem('jwt');
+      return null;
+    }
+    return token;
   }
 
   get currentUserRole() {
@@ -57,5 +63,15 @@ export class AuthService {
     }
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.sub;
+  }
+
+  isTokenExpired(token: string): boolean {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expirationTime = payload.exp * 1000;
+      return Date.now() >= expirationTime;
+    } catch (e) {
+      return true;
+    }
   }
 }
