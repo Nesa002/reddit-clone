@@ -55,3 +55,61 @@ header {
   fill: var(--ui-text-dark);
 }
 
+
+.dropdown {
+  position: absolute;
+  top: 57px;
+  right: 0;
+  width: 200px;
+  background-color: var(--color-secondary-background);
+  color: var(--muted-text-dark);
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 13px;
+  
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  
+  transition: 
+    opacity 0.3s ease,
+    visibility 0.3s ease,
+    transform 0.3s ease;
+}
+
+.dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown li {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.dropdown .list-object:hover {
+  
+  color: var(--ui-text-dark); /* Consider using a hover variant if available */
+}
+
+.list-object {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.li-svg {
+  height: max-content;
+  margin-left: 15px;
+}
+  

@@ -12,7 +12,22 @@
             <path d="M18 9.25h-7.25V2a.772.772 0 0 0-.75-.75.772.772 0 0 0-.75.75v7.25H2a.772.772 0 0 0-.75.75c0 .398.352.75.75.75h7.25V18c0 .398.352.75.75.75s.75-.352.75-.75v-7.25H18c.398 0 .75-.352.75-.75a.772.772 0 0 0-.75-.75Z"></path>
         </svg>
         
-        <img src="../../../assets/icons/avatar_default_1.png" alt="Profile" class="profile-image">
+        <div class="profile-container" (click)="toggleDropdown()">
+            <img src="../../../assets/icons/avatar_default_1.png" alt="Profile" class="profile-image">
+            <div class="dropdown" [class.active]="isDropdownOpen" *ngIf="isDropdownOpen">
+                <ul>
+                    <div class="list-object">
+                        <li>Profile</li>
+                    </div>
+                    <div class="list-object">
+                        <svg class="li-svg" rpl="" fill="currentColor" height="20" icon-name="logout-outline" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.991 10.625H1v-1.25h10.991l-1.933-1.933.884-.884 3 3a.624.624 0 0 1 0 .884l-3 3-.884-.884 1.933-1.933ZM15.375 1h-9.75A2.629 2.629 0 0 0 3 3.625v.792h1.25v-.792A1.377 1.377 0 0 1 5.625 2.25h9.75a1.377 1.377 0 0 1 1.375 1.375v12.75a1.377 1.377 0 0 1-1.375 1.375h-9.75a1.377 1.377 0 0 1-1.375-1.375v-.792H3v.792A2.63 2.63 0 0 0 5.625 19h9.75A2.63 2.63 0 0 0 18 16.375V3.625A2.63 2.63 0 0 0 15.375 1Z"></path>
+                        </svg>
+                        <li (click)="logout()">Log Out</li>
+                    </div>
+                </ul>
+            </div>
+        </div>
         
     </div>
 </header>
