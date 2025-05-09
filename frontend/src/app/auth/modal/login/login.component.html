@@ -1,0 +1,17 @@
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <input formControlName="username" placeholder="Username" (focus)="onFocus('username')">
+  <div class="input-warning" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+    Please fill out this field.
+  </div>
+
+  <input type="password" formControlName="password" placeholder="Password" (focus)="onFocus('password')">
+  <div class="input-warning" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+    Please fill out this field.
+  </div>
+  <div class="input-warning" *ngIf="loginErrorMessage">
+    {{ loginErrorMessage }}
+  </div>
+  <div class="button-wrapper">
+    <button type="submit" [disabled]="loginForm.invalid">Log In</button>
+  </div>
+</form>

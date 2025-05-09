@@ -36,9 +36,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    @Column
-    private String profileImageUrl;
-
     @ManyToMany(fetch = FetchType.LAZY, cascade = {})
     @JoinTable(
             name = "user_joined_subreddits",

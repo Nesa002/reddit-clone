@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { LoginRequestDTO } from './dto/login-request.dto';
+import { RegisterRequestDTO } from './dto/register-request.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,12 @@ export class AuthService {
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
     
     return this.httpClient.post<{ token: string }>(this.apiUrl + "/login", LoginRequestDTO, {headers}).pipe();
+  }
+
+  register(RegisterRequestDTO: RegisterRequestDTO) {
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    
+    return this.httpClient.post(this.apiUrl + "/register", RegisterRequestDTO, {headers}).pipe();
   }
 
   logout() {

@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from './shared/header/header.component';
-import { LoginComponent } from './auth/login/login.component';
+import { ModalComponent } from './auth/modal/modal.component';
+import { ToastComponent } from './shared/toast/toast/toast.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  template: `
-    <app-header></app-header>
-    <app-login></app-login>
-  `,
-  imports: [HeaderComponent, LoginComponent],
+  templateUrl: './app.component.html',
+  imports: [HeaderComponent, ModalComponent, ToastComponent],
 })
 export class AppComponent {}

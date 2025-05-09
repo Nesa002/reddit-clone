@@ -12,65 +12,80 @@ body {
 }
 :root {
 
+
+  /* Background Colors */
+  --color-neutral-background: #0E1113;
+  --color-neutral-background-container: #181C1F;
+  --color-secondary-background: #2a3236;
+  --color-secondary-background-hover: #333D42;
+  --color-caution-background: #849ba5;
+  --color-neutral-content-strong: #EEF1F3;
+  --color-danger-content-hover: #23272a;
+  --color-danger-plain: #d93900;
+  --color-caution-onBackground: #3e4142;
+
   
-    /* Background Colors */
-    --color-neutral-background: #0E1113;
-    --color-neutral-background-container: #181C1F;
-    --color-secondary-background: #2a3236;
-    --color-secondary-background-hover: #333D42;
-    --color-caution-background: #849ba5;
-    --color-neutral-content-strong: #EEF1F3;
-    --color-danger-content-hover: #23272a;
-    --color-danger-plain: #d93900;
-    --color-caution-onBackground: #3e4142;
+  /* Text Colors */
+  --ui-text-dark: #eef1f3; /* Lighter Text for Dark Theme */
+  --muted-text-dark: #b7cad4; /* Muted Gray Text */
 
-    
-    /* Text Colors */
-    --ui-text-dark: #eef1f3; /* Lighter Text for Dark Theme */
-    --muted-text-dark: #b7cad4; /* Muted Gray Text */
+  /* Warning Color */
+  --tw-ring-shadow: #ff4f40;
+}
 
-    /* Warning Color */
-    --tw-ring-shadow: #ff4f40;
-  }
-  
-  button {
-    margin-top: 1rem;
-    padding: 0.9rem 1rem;
-    width: 100%;
-    background-color: var(--color-danger-plain);
-    color: var(--color-neutral-content-strong);
-    border: none;
-    border-radius: 22px;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 700;
-  }
-  
-  button:disabled {
-    background-color: var(--color-danger-content-hover)
-  }
+button {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  width: 100%;
+  background-color: var(--color-danger-plain);
+  color: var(--color-neutral-content-strong);
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+}
 
-  input {
-    width: 76%;
-    margin: 0.7rem 0;
-    padding: 0.9rem;
-    border: none;
-    border-radius: 15px;
-    background-color: var(--color-secondary-background);
-    color: var(--color-neutral-content-strong);
-    font-size: 15px;
-  }
+button:disabled {
+  background-color: var(--color-danger-content-hover)
+}
 
-  input.ng-invalid.ng-touched {
-    border: 1px solid var(--tw-ring-shadow);
-  }
+input {
+  width: 76%;
+  margin: 0.7rem 0;
+  padding: 0.9rem;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--color-secondary-background);
+  color: var(--color-neutral-content-strong);
+  font-size: 15px;
+}
 
-  .input-warning {
-    position: absolute;
-    margin-top: -0.7rem;
-    color: var(--tw-ring-shadow);
-    font-size: 0.7rem;
-    padding-left: 0.5rem;
-    margin-left: 2.7rem;
-  }
+input.ng-invalid.ng-touched {
+  border: 1px solid var(--tw-ring-shadow);
+}
+
+.input-warning {
+  position: absolute;
+  margin-top: -0.7rem;
+  color: var(--tw-ring-shadow);
+  font-size: 0.7rem;
+  padding-left: 0.5rem;
+  margin-left: 2.7rem;
+}
+
+textarea {
+  width: 76%;
+  margin: 0.7rem 0;
+  padding: 0.9rem;
+  height: 100px;
+  border: none;
+  border-radius: 15px;
+  background-color: var(--color-secondary-background);
+  color: var(--color-neutral-content-strong);
+  font-size: 15px;
+  resize: none;
+  overflow: hidden;
+  outline: none;   
+}
   

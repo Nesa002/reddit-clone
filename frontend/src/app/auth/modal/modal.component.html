@@ -1,0 +1,18 @@
+<div class="overlay" *ngIf="modalService.isOpen$ | async"></div>
+<div class="modal" *ngIf="modalService.isOpen$ | async">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h1 class="modal-title">{{ isLogin ? 'Log In' : 'Register' }}</h1>
+    <ng-container *ngIf="isLogin; else registerTemplate">
+        <app-login></app-login>
+        <p class="modal-info">
+          New to Reddit? <a (click)="toggleAuth()">Sign Up</a>
+        </p>
+      </ng-container>
+      <ng-template #registerTemplate>
+        <app-register></app-register>
+        <p class="modal-info">
+          Already have an account? <a (click)="toggleAuth()">Log In</a>
+        </p>
+      </ng-template>
+  </div>
+</div>

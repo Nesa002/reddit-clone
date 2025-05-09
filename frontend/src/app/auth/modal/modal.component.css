@@ -17,6 +17,7 @@
     padding: 1.5rem;
     height: 88%;
     max-width: 31%;
+    width: 27.5%;
     border-radius: 15px;
     text-align: center;
     background-color: var(--color-neutral-background-container);
@@ -44,15 +45,12 @@
 
   }
 
-
-  
-  .button-wrapper {
-    width: 80%;
-    margin-inline-start: 10%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+  a {
+    color: #007bff;
+    text-decoration: none;
+    cursor: pointer;
   }
-
   
+  a:hover {
+    text-decoration: underline;
+  }

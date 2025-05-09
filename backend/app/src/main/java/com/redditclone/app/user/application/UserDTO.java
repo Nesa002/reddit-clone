@@ -13,5 +13,4 @@ public class UserDTO {
     private UUID id;
     private String username;
     private String bio;
-    private String profileImageUrl;
 }

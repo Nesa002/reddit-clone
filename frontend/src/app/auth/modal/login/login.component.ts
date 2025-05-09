@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalService } from '../../core/modal.service';
-import { AsyncPipe, NgIf } from '@angular/common';
-import {LoginRequestDTO} from '../dto/login-request.dto';
-import { AuthService } from '../auth.service';
+import { ModalService } from '../../../core/modal.service';
+import { NgIf } from '@angular/common';
+import {LoginRequestDTO} from '../../dto/login-request.dto';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgIf, AsyncPipe, ReactiveFormsModule],
+  imports: [NgIf, ReactiveFormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   loginForm: FormGroup; 

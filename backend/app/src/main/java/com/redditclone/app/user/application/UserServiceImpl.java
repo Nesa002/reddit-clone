@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
         user.setUsername(registrationRequest.getUsername());
         user.setEmail(registrationRequest.getEmail());
         user.setBio(registrationRequest.getBio());
-        user.setProfileImageUrl(registrationRequest.getProfileImageUrl());
         user.setRole(UserRole.USER);
 
         String encodedPassword = bCryptPasswordEncoder.encode(registrationRequest.getPassword());

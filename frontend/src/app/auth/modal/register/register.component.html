@@ -1,0 +1,21 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<input formControlName="username" placeholder="Username" (focus)="onFocus('username')">
+<div class="input-warning" *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+    Username must be between 3 and 30 characters
+</div>
+<input formControlName="email" placeholder="Email" (focus)="onFocus('email')">
+<div class="input-warning" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+    Please enter a valid email.
+</div>
+<input type="password" formControlName="password" placeholder="Password" (focus)="onFocus('password')">
+<div class="input-warning" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+    Password must be at least 6 characters
+</div>
+<textarea formControlName="bio" placeholder="Bio (Optional)" (focus)="onFocus('bio')"></textarea>
+<div class="input-warning" *ngIf="registerErrorMessage">
+    {{ registerErrorMessage }}
+    </div>
+<div class="button-wrapper">
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+</div>
+</form>

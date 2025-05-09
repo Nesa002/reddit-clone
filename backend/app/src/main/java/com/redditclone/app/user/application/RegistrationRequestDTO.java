@@ -27,7 +27,4 @@ public class RegistrationRequestDTO {
     private String password;
 
     private String bio;
-
-    @Pattern(regexp = "^(http|https)://.*", message = "Profile image URL must be valid and start with http:// or https://")
-    private String profileImageUrl;
 }
