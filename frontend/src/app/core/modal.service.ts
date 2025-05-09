@@ -5,11 +5,18 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class ModalService {
-  private isOpenSubject = new BehaviorSubject<boolean>(true);
+  private isOpenSubject = new BehaviorSubject<boolean>(false);
   isOpen$ = this.isOpenSubject.asObservable()
 
   private isLogin = new BehaviorSubject<boolean>(true);
   isLogin$ = this.isLogin.asObservable()
+
+  constructor() {
+    const jwtToken = localStorage.getItem('jwt');
+    if (!jwtToken) {
+      this.isOpenSubject.next(true);
+    }
+  }
 
   open() {
     this.isOpenSubject.next(true);
