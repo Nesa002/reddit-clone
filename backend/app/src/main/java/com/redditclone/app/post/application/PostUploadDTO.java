@@ -7,11 +7,13 @@ import com.redditclone.app.user.domain.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
 import java.util.UUID;
 
 @Data
-public class PostDTO {
+public class PostUploadDTO {
 
     private UUID id;
 
@@ -24,7 +26,10 @@ public class PostDTO {
     @NotNull(message = "Post type cannot be null")
     private PostType type;
 
+    private MultipartFile file;
+
     private int upvotes;
+
     private int downvotes;
 
     @NotNull(message = "User ID cannot be null")
@@ -33,12 +38,13 @@ public class PostDTO {
     @NotNull(message = "Subreddit ID cannot be null")
     private UUID subredditId;
 
-    public Post toEntity(User user, Subreddit subreddit) {
+    public Post toEntity(User user, Subreddit subreddit, String fileUrl) {
         Post post = new Post();
         post.setId(this.id);
         post.setTitle(this.title);
         post.setContent(this.content);
         post.setType(this.type);
+        post.setFileUrl(fileUrl);
         post.setUpvotes(this.upvotes);
         post.setDownvotes(this.downvotes);
         post.setUser(user);

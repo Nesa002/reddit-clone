@@ -1,13 +1,14 @@
 package com.redditclone.app.post.domain;
 
-import com.redditclone.app.post.application.PostDTO;
+import com.redditclone.app.post.application.PostDownloadDTO;
+import com.redditclone.app.post.application.PostUploadDTO;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface PostService {
-    Post createPost(PostDTO post);
-    Post getPostById(UUID id);
+    Post uploadPost(PostUploadDTO post);
+    PostDownloadDTO downloadPost(UUID id) throws Exception;
     List<Post> getAllPosts();
     List<Post> getPostsBySubreddit(UUID subredditId);
     List<Post> getPostsByUser(UUID userId);

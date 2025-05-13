@@ -29,6 +29,9 @@ public class Post {
     @Enumerated(EnumType.STRING)
     private PostType type;
 
+    @Column(nullable = true)
+    private String fileUrl;
+
     @Column(nullable = false)
     private int upvotes;
 
