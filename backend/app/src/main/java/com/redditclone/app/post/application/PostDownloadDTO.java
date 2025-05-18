@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Data
 public class PostDownloadDTO {
-
     private UUID id;
     private String title;
     private String content;
