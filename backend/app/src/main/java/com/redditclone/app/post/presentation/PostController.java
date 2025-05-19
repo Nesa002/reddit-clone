@@ -5,6 +5,9 @@ import com.redditclone.app.post.application.PostUploadDTO;
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostService;
 import jakarta.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -38,27 +41,11 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
-    @GetMapping
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
+    @GetMapping("/feed/{userId}")
+    public ResponseEntity<Page<PostDownloadDTO>> getPostsForUser(
+            Pageable pageable,
+            @PathVariable UUID userId) {
+        Page<PostDownloadDTO> posts = postService.getPostsForUser(pageable, userId);
         return ResponseEntity.ok(posts);
-    }
-
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Post>> getPostsByUser(@PathVariable UUID userId) {
-        List<Post> posts = postService.getPostsByUser(userId);
-        return ResponseEntity.ok(posts);
-    }
-
-    @GetMapping("/subreddit/{subredditId}")
-    public ResponseEntity<List<Post>> getPostsBySubreddit(@PathVariable UUID subredditId) {
-        List<Post> posts = postService.getPostsBySubreddit(subredditId);
-        return ResponseEntity.ok(posts);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable UUID id) {
-        postService.deletePost(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

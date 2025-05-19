@@ -47,7 +47,7 @@ export class AuthService {
     return payload.role;
   }
 
-  get currentUserId() {
+  currentUserId() {
     const token = localStorage.getItem('jwt');
     if (!token) {
       return null;

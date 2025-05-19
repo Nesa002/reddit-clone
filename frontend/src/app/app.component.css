@@ -4,3 +4,23 @@
   height: 100vh;
   gap: 40px;
 }
+
+app-sidebar {
+  display: block;
+  width: 250px; 
+  height: 100%;
+  flex-shrink: 0; 
+} 
+
+@media (max-width: 1200px) {
+  app-sidebar {
+    display: none;
+  }
+}
+
+
+app-post-list {
+  display: block;
+  flex-grow: 1;
+  width: max-content;
+}

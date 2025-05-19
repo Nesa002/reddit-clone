@@ -6,8 +6,12 @@ import com.redditclone.app.post.domain.PostService;
 import com.redditclone.app.shared.document.DocumentFileService;
 import com.redditclone.app.subreddit.domain.Subreddit;
 import com.redditclone.app.subreddit.domain.SubredditRepository;
+import com.redditclone.app.user.application.PostMapper;
 import com.redditclone.app.user.domain.User;
 import com.redditclone.app.user.domain.UserRepository;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -21,11 +25,14 @@ public class PostServiceImpl implements PostService {
     private final UserRepository userRepository;
     private final DocumentFileService documentFileService;
 
-    public PostServiceImpl(PostRepository postRepository, SubredditRepository subredditRepository, UserRepository userRepository, DocumentFileService documentFileService) {
+    private final PostMapper postMapper;
+
+    public PostServiceImpl(PostRepository postRepository, SubredditRepository subredditRepository, UserRepository userRepository, DocumentFileService documentFileService, PostMapper postMapper) {
         this.postRepository = postRepository;
         this.subredditRepository = subredditRepository;
         this.userRepository = userRepository;
         this.documentFileService = documentFileService;
+        this.postMapper = postMapper;
     }
 
     @Override
@@ -52,6 +59,19 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
+        byte[] fileData = downloadFile(post);
+        return postMapper.toPostDownloadDTO(post, fileData);
+    }
+
+    @Override
+    public Page<PostDownloadDTO> getPostsForUser(Pageable pageable, UUID userId) {
+        Page<Post> postPage = postRepository.findPostsForUserFollowedSubreddits(userId, pageable);
+
+        return postPage.map(post -> postMapper.toPostDownloadDTO(post, downloadFile(post)));
+    }
+
+    @Nullable
+    private byte[] downloadFile(Post post) {
         byte[] fileData = null;
         if (post.getFileUrl() != null) {
             try (InputStream inputStream = documentFileService.downloadFile(post.getFileUrl())) {
@@ -60,39 +80,7 @@ public class PostServiceImpl implements PostService {
                 throw new RuntimeException("Failed to download file", e);
             }
         }
-
-        PostDownloadDTO postDTO = new PostDownloadDTO();
-        postDTO.setId(post.getId());
-        postDTO.setTitle(post.getTitle());
-        postDTO.setContent(post.getContent());
-        postDTO.setType(post.getType());
-        postDTO.setUpvotes(post.getUpvotes());
-        postDTO.setDownvotes(post.getDownvotes());
-        postDTO.setUserId(post.getUser().getId());
-        postDTO.setSubredditId(post.getSubreddit().getId());
-        postDTO.setFile(fileData);
-
-        return postDTO;
+        return fileData;
     }
 
-
-    @Override
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
-
-    @Override
-    public List<Post> getPostsBySubreddit(UUID subredditId) {
-        return postRepository.findBySubredditId(subredditId);
-    }
-
-    @Override
-    public List<Post> getPostsByUser(UUID userId) {
-        return postRepository.findByUserId(userId);
-    }
-
-    @Override
-    public void deletePost(UUID id) {
-        postRepository.deleteById(id);
-    }
 }
