@@ -24,8 +24,20 @@
     color: var(--color-neutral-content-strong);
 }
 .post-user {
-    font-size: 0.9em;
+    font-size: 0.8em;
 }
+
+.post-user-container {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.post-profile-image {
+    border-radius: 50%;
+    height: 19px;
+}
+
 .post-image {
     height: 75px;
     width: 100px;

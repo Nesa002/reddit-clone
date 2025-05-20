@@ -1,12 +1,20 @@
-<div *ngFor="let post of posts" class="post-container">
-    <div class="post-subreddit">Uploaded to r/{{ post.subredditName }}</div>
-    <div class="post">
-        <img *ngIf="post.file" [src]="'data:image/png;base64,' + post.file" alt="Post Image" class="post-image" />
-        <div class="post-right-side">
-            <div class="post-user">u/{{ post.username }}</div>
-            <div class="post-title">{{ post.title }}</div>
-            <div class="votes">Upvotes: {{ post.upvotes }} | Downvotes: {{ post.downvotes }}</div>
+
+<div *ngIf="isLoading">Loading posts...</div>
+<div *ngIf="!isLoading">
+    <div *ngFor="let post of posts" class="post-container">
+        <div class="post-subreddit">Uploaded to r/{{ post.subredditName }}</div>
+        <div class="post">
+            <img *ngIf="post.file" [src]="'data:image/png;base64,' + post.file" alt="Post Image" class="post-image" />
+            <div class="post-right-side">
+                <div class="post-user-container">
+                    <img src="../../../assets/icons/avatar_default_1.png" alt="Profile" class="post-profile-image">
+                    <div class="post-user">u/{{ post.username }} • {{ post.createdAt | timeAgo }}</div>
+                </div>
+                <div class="post-title">{{ post.title }}</div>
+                <div class="votes">Upvotes: {{ post.upvotes }} | Downvotes: {{ post.downvotes }}</div>
+            </div>
         </div>
-    </div>
+    </div>  
 </div>
+
 

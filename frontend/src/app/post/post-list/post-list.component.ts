@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../auth/auth.service';
 import { PostService } from '../post.service';
 import { CommonModule } from '@angular/common';
+import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TimeAgoPipe],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css'
 })
@@ -14,6 +15,7 @@ export class PostListComponent {
   posts: any[] = [];
   page = 0;
   size = 10;
+  isLoading = true;
 
   constructor(private postService: PostService, private authService: AuthService) {}
 
@@ -27,14 +29,16 @@ export class PostListComponent {
   }
 
   loadPosts(userId: string): void {
-    this.postService.getPosts(userId, this.page, this.size).subscribe(
-      (response) => {
+    this.isLoading = true;
+    this.postService.getPosts(userId, this.page, this.size).subscribe({
+      next: (response) => {
         this.posts = response.content;
-        console.log('Posts loaded:', this.posts);
+        this.isLoading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error loading posts:', error);
+        this.isLoading = false;
       }
-    );
+    });
   }
 }
