@@ -1,6 +1,6 @@
 package com.redditclone.app.subreddit.presentation;
 
-import com.redditclone.app.subreddit.application.SubredditDTO;
+import com.redditclone.app.subreddit.application.dto.SubredditDTO;
 import com.redditclone.app.subreddit.domain.Subreddit;
 import com.redditclone.app.subreddit.domain.SubredditService;
 import jakarta.validation.Valid;

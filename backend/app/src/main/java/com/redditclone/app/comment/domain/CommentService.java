@@ -1,6 +1,6 @@
 package com.redditclone.app.comment.domain;
 
-import com.redditclone.app.comment.application.CommentDTO;
+import com.redditclone.app.comment.application.dto.CommentDTO;
 
 import java.util.List;
 import java.util.UUID;

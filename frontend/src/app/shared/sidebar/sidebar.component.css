@@ -3,6 +3,8 @@
   border-right: 1px solid var(--color-caution-onBackground);
   height: 100%;
   flex-shrink: 0;
+  position: fixed;
+  background-color: var(--color-neutral-background);
 }
 
 @media (max-width: 1200px) {

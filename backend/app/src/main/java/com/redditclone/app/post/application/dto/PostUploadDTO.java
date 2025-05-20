@@ -1,4 +1,4 @@
-package com.redditclone.app.post.application;
+package com.redditclone.app.post.application.dto;
 
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostType;
@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
 import java.util.UUID;
 
 @Data

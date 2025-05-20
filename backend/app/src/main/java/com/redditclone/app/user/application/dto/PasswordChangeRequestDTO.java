@@ -1,4 +1,4 @@
-package com.redditclone.app.user.application;
+package com.redditclone.app.user.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,4 +1,4 @@
-export interface PostDownloadDTO {
+export interface PostPreviewDTO {
   id: string;
   title: string;
   content: string;
@@ -6,8 +6,9 @@ export interface PostDownloadDTO {
   file?: string;
   upvotes: number;
   downvotes: number;
-  userId: string;
-  subredditId: string;
+  username: string;
+  subredditName: string;
+  createdAt: string;
 }
 
 export enum PostType {

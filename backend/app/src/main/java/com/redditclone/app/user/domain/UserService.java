@@ -1,8 +1,7 @@
 package com.redditclone.app.user.domain;
 
-import com.redditclone.app.user.application.LoginRequestDTO;
-import com.redditclone.app.user.application.PasswordChangeRequestDTO;
-import com.redditclone.app.user.application.RegistrationRequestDTO;
+import com.redditclone.app.user.application.dto.PasswordChangeRequestDTO;
+import com.redditclone.app.user.application.dto.RegistrationRequestDTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

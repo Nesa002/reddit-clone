@@ -1,13 +1,13 @@
-package com.redditclone.app.post.application;
+package com.redditclone.app.post.application.dto;
 
 import com.redditclone.app.post.domain.PostType;
 import lombok.Data;
 
-import java.io.InputStream;
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
-public class PostDownloadDTO {
+public class PostPreviewDTO {
     private UUID id;
     private String title;
     private String content;
@@ -15,6 +15,7 @@ public class PostDownloadDTO {
     private byte[] file;
     private int upvotes;
     private int downvotes;
-    private UUID userId;
-    private UUID subredditId;
+    private String username;
+    private String subredditName;
+    private Instant createdAt;
 }

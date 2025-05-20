@@ -1,6 +1,5 @@
-package com.redditclone.app.user.application;
+package com.redditclone.app.user.application.dto;
 
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

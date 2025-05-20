@@ -1,4 +1,4 @@
-package com.redditclone.app.user.application;
+package com.redditclone.app.user.application.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

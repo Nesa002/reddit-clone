@@ -1,5 +1,7 @@
 package com.redditclone.app.post.application;
 
+import com.redditclone.app.post.application.dto.PostPreviewDTO;
+import com.redditclone.app.post.application.dto.PostUploadDTO;
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostRepository;
 import com.redditclone.app.post.domain.PostService;
@@ -7,7 +9,6 @@ import com.redditclone.app.post.domain.PostType;
 import com.redditclone.app.shared.document.DocumentFileService;
 import com.redditclone.app.subreddit.domain.Subreddit;
 import com.redditclone.app.subreddit.domain.SubredditRepository;
-import com.redditclone.app.user.application.PostMapper;
 import com.redditclone.app.user.domain.User;
 import com.redditclone.app.user.domain.UserRepository;
 import org.jetbrains.annotations.Nullable;
@@ -59,26 +60,36 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public PostDownloadDTO downloadPost(UUID id) throws Exception {
+    public PostPreviewDTO downloadPost(UUID id) throws Exception {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
-        byte[] fileData = downloadFile(post);
+        byte[] fileData = downloadFile(post.getFileUrl());
         return postMapper.toPostDownloadDTO(post, fileData);
     }
 
     @Override
-    public Page<PostDownloadDTO> getPostsForUser(Pageable pageable, UUID userId) {
+    public Page<PostPreviewDTO> getPostsForUser(Pageable pageable, UUID userId) {
         Page<Post> postPage = postRepository.findPostsForUserFollowedSubreddits(userId, pageable);
 
-        return postPage.map(post -> postMapper.toPostDownloadDTO(post, downloadFile(post)));
+        return postPage.map(post -> {
+            String urlToDownload;
+
+            if (post.getType() == PostType.VIDEO) {
+                urlToDownload = post.getThumbnailUrl();
+            } else {
+                urlToDownload = post.getFileUrl();
+            }
+
+            return postMapper.toPostDownloadDTO(post, downloadFile(urlToDownload));
+        });
     }
 
     @Nullable
-    private byte[] downloadFile(Post post) {
+    private byte[] downloadFile(String fileUrl) {
         byte[] fileData = null;
-        if (post.getFileUrl() != null) {
-            try (InputStream inputStream = documentFileService.downloadFile(post.getFileUrl())) {
+        if (fileUrl != null) {
+            try (InputStream inputStream = documentFileService.downloadFile(fileUrl)) {
                 fileData = inputStream.readAllBytes();  // Convert InputStream to byte[]
             } catch (Exception e) {
                 throw new RuntimeException("Failed to download file", e);

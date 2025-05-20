@@ -2,23 +2,16 @@ package com.redditclone.app.user.application;
 
 import com.redditclone.app.shared.exception.DuplicateEmailException;
 import com.redditclone.app.shared.exception.DuplicateUsernameException;
-import com.redditclone.app.shared.security.AuthService;
-import com.redditclone.app.shared.security.JwtService;
+import com.redditclone.app.user.application.dto.PasswordChangeRequestDTO;
+import com.redditclone.app.user.application.dto.RegistrationRequestDTO;
 import com.redditclone.app.user.domain.User;
 import com.redditclone.app.user.domain.UserRepository;
 import com.redditclone.app.user.domain.UserRole;
 import com.redditclone.app.user.domain.UserService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.security.auth.login.AccountNotFoundException;
 import java.util.Optional;
 
 @Service

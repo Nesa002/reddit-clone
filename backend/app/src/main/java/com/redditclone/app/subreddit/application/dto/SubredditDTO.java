@@ -1,4 +1,4 @@
-package com.redditclone.app.subreddit.application;
+package com.redditclone.app.subreddit.application.dto;
 
 import com.redditclone.app.subreddit.domain.Subreddit;
 import jakarta.validation.constraints.NotBlank;

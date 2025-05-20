@@ -1,22 +1,18 @@
 package com.redditclone.app.post.presentation;
 
-import com.redditclone.app.post.application.PostDownloadDTO;
-import com.redditclone.app.post.application.PostUploadDTO;
+import com.redditclone.app.post.application.dto.PostPreviewDTO;
+import com.redditclone.app.post.application.dto.PostUploadDTO;
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostService;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.InputStream;
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,16 +32,16 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDownloadDTO> downloadPost(@PathVariable UUID id) throws Exception {
-        PostDownloadDTO post = postService.downloadPost(id);
+    public ResponseEntity<PostPreviewDTO> downloadPost(@PathVariable UUID id) throws Exception {
+        PostPreviewDTO post = postService.downloadPost(id);
         return ResponseEntity.ok(post);
     }
 
     @GetMapping("/feed/{userId}")
-    public ResponseEntity<Page<PostDownloadDTO>> getPostsForUser(
+    public ResponseEntity<Page<PostPreviewDTO>> getPostsForUser(
             Pageable pageable,
             @PathVariable UUID userId) {
-        Page<PostDownloadDTO> posts = postService.getPostsForUser(pageable, userId);
+        Page<PostPreviewDTO> posts = postService.getPostsForUser(pageable, userId);
         return ResponseEntity.ok(posts);
     }
 }

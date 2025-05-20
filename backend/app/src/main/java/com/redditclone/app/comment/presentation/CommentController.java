@@ -1,11 +1,9 @@
 package com.redditclone.app.comment.presentation;
 
-import com.redditclone.app.comment.application.CommentDTO;
+import com.redditclone.app.comment.application.dto.CommentDTO;
 import com.redditclone.app.comment.domain.Comment;
 import com.redditclone.app.comment.domain.CommentService;
-import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostRepository;
-import com.redditclone.app.user.domain.User;
 import com.redditclone.app.user.domain.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

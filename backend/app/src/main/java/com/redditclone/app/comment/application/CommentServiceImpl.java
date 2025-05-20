@@ -1,5 +1,6 @@
 package com.redditclone.app.comment.application;
 
+import com.redditclone.app.comment.application.dto.CommentDTO;
 import com.redditclone.app.comment.domain.Comment;
 import com.redditclone.app.comment.domain.CommentRepository;
 import com.redditclone.app.comment.domain.CommentService;

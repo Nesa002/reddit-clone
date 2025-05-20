@@ -1,4 +1,4 @@
-package com.redditclone.app.comment.application;
+package com.redditclone.app.comment.application.dto;
 
 import com.redditclone.app.comment.domain.Comment;
 import com.redditclone.app.post.domain.Post;

@@ -1,4 +1,11 @@
 header {
+  position: sticky;
+  top: 0;
+  background-color: var(--color-neutral-background);
+}
+
+
+.header-container {
   padding: 1rem;
   display: flex;
   justify-content: space-between;
