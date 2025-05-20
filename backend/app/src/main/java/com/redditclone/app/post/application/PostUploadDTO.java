@@ -38,13 +38,14 @@ public class PostUploadDTO {
     @NotNull(message = "Subreddit ID cannot be null")
     private UUID subredditId;
 
-    public Post toEntity(User user, Subreddit subreddit, String fileUrl) {
+    public Post toEntity(User user, Subreddit subreddit, String fileUrl, String thumbnailUrl) {
         Post post = new Post();
         post.setId(this.id);
         post.setTitle(this.title);
         post.setContent(this.content);
         post.setType(this.type);
         post.setFileUrl(fileUrl);
+        post.setThumbnailUrl(thumbnailUrl);
         post.setUpvotes(this.upvotes);
         post.setDownvotes(this.downvotes);
         post.setUser(user);

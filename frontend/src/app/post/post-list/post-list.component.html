@@ -1,7 +1,9 @@
 <div *ngFor="let post of posts" class="post">
-    <div class="post-title">{{ post.title }}</div>
-    <div class="post-content">{{ post.content }}</div>
-    <div class="votes">Upvotes: {{ post.upvotes }} | Downvotes: {{ post.downvotes }}</div>
-    <div>User ID: {{ post.userId }} | Subreddit ID: {{ post.subredditId }}</div>
     <img *ngIf="post.file" [src]="'data:image/png;base64,' + post.file" alt="Post Image" class="post-image" />
+    <div class="post-right-side">
+        <div class="post-user">u/placeholder</div>
+        <div class="post-title">{{ post.title }}</div>
+        <div class="post-content">{{ post.content }}</div>
+        <div class="votes">Upvotes: {{ post.upvotes }} | Downvotes: {{ post.downvotes }}</div>
+    </div>
 </div>

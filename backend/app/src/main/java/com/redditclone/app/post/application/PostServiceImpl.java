@@ -3,6 +3,7 @@ package com.redditclone.app.post.application;
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostRepository;
 import com.redditclone.app.post.domain.PostService;
+import com.redditclone.app.post.domain.PostType;
 import com.redditclone.app.shared.document.DocumentFileService;
 import com.redditclone.app.subreddit.domain.Subreddit;
 import com.redditclone.app.subreddit.domain.SubredditRepository;
@@ -15,7 +16,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -43,13 +43,17 @@ public class PostServiceImpl implements PostService {
                 .orElseThrow(() -> new RuntimeException("Subreddit not found"));
 
         String fileUrl = null;
+        String thumbnailUrl = null;
         try {
             fileUrl = documentFileService.uploadFile(postDTO.getFile(), "posts");
+            if (postDTO.getType() == PostType.VIDEO) {
+                thumbnailUrl = documentFileService.generateAndUploadVideoThumbnail(postDTO.getFile());
+            }
         } catch (Exception e) {
             throw new RuntimeException("Failed to upload file", e);
         }
 
-        Post post = postDTO.toEntity(user, subreddit, fileUrl);
+        Post post = postDTO.toEntity(user, subreddit, fileUrl, thumbnailUrl);
         return postRepository.save(post);
     }
 
@@ -82,5 +86,8 @@ public class PostServiceImpl implements PostService {
         }
         return fileData;
     }
+
+
+
 
 }

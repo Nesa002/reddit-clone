@@ -32,6 +32,9 @@ public class Post {
     @Column(nullable = true)
     private String fileUrl;
 
+    @Column(nullable = true)
+    private String thumbnailUrl;
+
     @Column(nullable = false)
     private int upvotes;
 

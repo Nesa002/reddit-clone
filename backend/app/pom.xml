@@ -98,6 +98,11 @@
 			<artifactId>minio</artifactId>
 			<version>8.5.5</version>
 		</dependency>
+		<dependency>
+			<groupId>net.bramp.ffmpeg</groupId>
+			<artifactId>ffmpeg</artifactId>
+			<version>0.7.0</version>
+		</dependency>
 
 	</dependencies>
 
