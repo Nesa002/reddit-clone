@@ -1,11 +1,9 @@
 package com.redditclone.app.post.application;
 
+import com.redditclone.app.post.application.dto.PostDetailsDTO;
 import com.redditclone.app.post.application.dto.PostPreviewDTO;
 import com.redditclone.app.post.application.dto.PostUploadDTO;
-import com.redditclone.app.post.domain.Post;
-import com.redditclone.app.post.domain.PostRepository;
-import com.redditclone.app.post.domain.PostService;
-import com.redditclone.app.post.domain.PostType;
+import com.redditclone.app.post.domain.*;
 import com.redditclone.app.shared.document.DocumentFileService;
 import com.redditclone.app.subreddit.domain.Subreddit;
 import com.redditclone.app.subreddit.domain.SubredditRepository;
@@ -17,6 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.UUID;
 
 @Service
@@ -60,17 +61,17 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public PostPreviewDTO downloadPost(UUID id) throws Exception {
+    public PostDetailsDTO downloadPost(UUID id) throws Exception {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Post not found"));
 
         byte[] fileData = downloadFile(post.getFileUrl());
-        return postMapper.toPostDownloadDTO(post, fileData);
+        return postMapper.toPostDetailsDTO(post, fileData);
     }
 
     @Override
-    public Page<PostPreviewDTO> getPostsForUser(Pageable pageable, UUID userId) {
-        Page<Post> postPage = postRepository.findPostsForUserFollowedSubreddits(userId, pageable);
+    public Page<PostPreviewDTO> getPostsForUser(Pageable pageable, UUID userId, FilterType filterType) {
+        Page<Post> postPage = filterPosts(pageable, userId, filterType);
 
         return postPage.map(post -> {
             String urlToDownload;
@@ -81,9 +82,50 @@ public class PostServiceImpl implements PostService {
                 urlToDownload = post.getFileUrl();
             }
 
-            return postMapper.toPostDownloadDTO(post, downloadFile(urlToDownload));
+            return postMapper.toPostPreviewDTO(post, downloadFile(urlToDownload));
         });
     }
+
+    private Page<Post> filterPosts(Pageable pageable, UUID userId, FilterType filterType) {
+        switch (filterType) {
+            case NEW -> {
+                return postRepository.findPostsForUserFeedNew(userId, pageable);
+            }
+            case TOP_TODAY -> {
+                Instant cutoff = LocalDateTime.now()
+                        .minusDays(1)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant();
+                return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
+            }
+            case TOP_WEEK -> {
+                Instant cutoff = LocalDateTime.now()
+                        .minusWeeks(1)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant();
+                return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
+            }
+            case TOP_MONTH -> {
+                Instant cutoff = LocalDateTime.now()
+                        .minusMonths(1)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant();
+                return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
+            }
+            case TOP_YEAR -> {
+                Instant cutoff = LocalDateTime.now()
+                        .minusYears(1)
+                        .atZone(ZoneId.systemDefault())
+                        .toInstant();
+                return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
+            }
+            case TOP_ALL_TIME -> {
+                return postRepository.findPostsForUserFeedTopAllTime(userId, pageable);
+            }
+            default -> throw new IllegalArgumentException("Unsupported filter type: " + filterType);
+        }
+    }
+
 
     @Nullable
     private byte[] downloadFile(String fileUrl) {

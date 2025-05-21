@@ -20,6 +20,11 @@
     gap: 20px;
 }
 
+.post-container:hover {
+    border-radius: 8px; 
+    background-color: var(--color-secondary-background); 
+}
+
 .post-subreddit {
     font-size: 0.8em;
 }
@@ -53,8 +58,6 @@
 .votes {
     font-size: 0.8em;
 }
-
-
 
 .no-more-posts {
     display: flex;

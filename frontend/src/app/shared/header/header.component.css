@@ -4,7 +4,7 @@ header {
   left: 0;
   top: 0;
   background-color: var(--color-neutral-background);
-  z-index: 3000;
+  z-index: 500;
 }
 
 

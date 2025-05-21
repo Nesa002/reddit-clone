@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
 import { Router } from '@angular/router';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { FilterType } from '../enum/post.filter.type';
 
 @Component({
   selector: 'app-post-list',
@@ -14,6 +15,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
   styleUrl: './post-list.component.css'
 })
 export class PostListComponent {
+  filter: FilterType = FilterType.TOP_TODAY;
   posts: any[] = [];
   page = 0;
   size = 10;
@@ -43,9 +45,9 @@ export class PostListComponent {
     if (this.lastPage) return;
 
     this.isLoading = true;
-    this.postService.getPosts(userId, this.page, this.size).subscribe({
+    this.postService.getPosts(userId, this.page, this.size, this.filter).subscribe({
       next: (response) => {
-        this.posts = this.posts.concat(response.content);
+        this.posts = [...this.posts, ...response.content];
         this.lastPage = response.last;
         this.isLoading = false;
       },

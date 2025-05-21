@@ -1,7 +1,9 @@
 package com.redditclone.app.post.presentation;
 
+import com.redditclone.app.post.application.dto.PostDetailsDTO;
 import com.redditclone.app.post.application.dto.PostPreviewDTO;
 import com.redditclone.app.post.application.dto.PostUploadDTO;
+import com.redditclone.app.post.domain.FilterType;
 import com.redditclone.app.post.domain.Post;
 import com.redditclone.app.post.domain.PostService;
 import jakarta.validation.Valid;
@@ -32,16 +34,17 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostPreviewDTO> downloadPost(@PathVariable UUID id) throws Exception {
-        PostPreviewDTO post = postService.downloadPost(id);
+    public ResponseEntity<PostDetailsDTO> getPost(@PathVariable UUID id) throws Exception {
+        PostDetailsDTO post = postService.downloadPost(id);
         return ResponseEntity.ok(post);
     }
 
     @GetMapping("/feed/{userId}")
     public ResponseEntity<Page<PostPreviewDTO>> getPostsForUser(
             Pageable pageable,
-            @PathVariable UUID userId) {
-        Page<PostPreviewDTO> posts = postService.getPostsForUser(pageable, userId);
+            @PathVariable UUID userId,
+            @RequestParam FilterType filterType) {
+        Page<PostPreviewDTO> posts = postService.getPostsForUser(pageable, userId, filterType);
         return ResponseEntity.ok(posts);
     }
 }
