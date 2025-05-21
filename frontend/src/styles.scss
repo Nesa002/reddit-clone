@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 @import '@fontsource/roboto/300.css';
 @import '@fontsource/roboto/400.css';
 @import '@fontsource/roboto/500.css';
@@ -31,6 +33,8 @@ body {
 
   /* Warning Color */
   --tw-ring-shadow: #ff4f40;
+
+  --reddit-orange: #ff4500;
 }
 
 button {
@@ -89,4 +93,15 @@ textarea {
   outline: none;   
 }
 
+
+:root {
+  @include mat.progress-spinner-overrides((
+    active-indicator-color: var(--reddit-orange),
+  ));
+}
+
+.spinner-container {
+    display: flex;
+    justify-content: center;
+}
 

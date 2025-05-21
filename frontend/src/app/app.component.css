@@ -4,6 +4,12 @@
   gap: 20px;
 }
 
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 57px;
+}
+
 app-sidebar {
   display: block;
   width: 250px; 

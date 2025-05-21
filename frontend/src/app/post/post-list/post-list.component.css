@@ -53,3 +53,15 @@
 .votes {
     font-size: 0.8em;
 }
+
+
+
+.no-more-posts {
+    display: flex;
+    justify-content: center;
+    color: var(--muted-text-dark);
+    border-top: 1px solid var(--color-caution-onBackground);
+    margin: 0px 30px 15px 10px;
+    padding-top: 15px;
+    font-size: 0.9em;
+}
