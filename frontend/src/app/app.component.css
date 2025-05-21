@@ -1,8 +1,7 @@
 .content-wrapper {
   display: flex;
   flex-direction: row;
-  height: 100vh;
-  gap: 40px;
+  gap: 20px;
 }
 
 app-sidebar {
@@ -16,11 +15,4 @@ app-sidebar {
   app-sidebar {
     display: none;
   }
-}
-
-
-app-post-list {
-  display: block;
-  flex-grow: 1;
-  width: max-content;
 }

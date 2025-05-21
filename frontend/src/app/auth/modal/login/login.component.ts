@@ -42,7 +42,9 @@ export class LoginComponent {
     this.authService.login(loginData).subscribe({
       next: (response) => {
         localStorage.setItem('jwt', response.token);
-        this.close()
+        this.close();
+        window.location.reload();
+
       },
       error: (error) => {
         console.error('Login failed:', error);

@@ -3,6 +3,7 @@ import { AuthService } from '../../auth/auth.service';
 import { PostService } from '../post.service';
 import { CommonModule } from '@angular/common';
 import { TimeAgoPipe } from '../../shared/pipes/time-ago.pipe';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-post-list',
@@ -17,7 +18,7 @@ export class PostListComponent {
   size = 10;
   isLoading = true;
 
-  constructor(private postService: PostService, private authService: AuthService) {}
+  constructor(private postService: PostService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     const userId = this.authService.currentUserId();
@@ -40,5 +41,12 @@ export class PostListComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  viewDetails(event: MouseEvent, id: number): void {
+    if ((event.target as HTMLElement).closest('button, a, [data-no-navigate]')) {
+      return;
+    }
+    this.router.navigate(['/post', id]);
   }
 }
