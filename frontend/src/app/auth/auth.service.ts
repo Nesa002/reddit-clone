@@ -56,6 +56,12 @@ export class AuthService {
     return payload.id;
   }
 
+  public hasRole(roles: string[]): boolean {
+    const userRole = this.currentUserRole;
+
+    return roles.includes(userRole)
+  }
+
   get currentUserUsername() {
     const token = localStorage.getItem('jwt');
     if (!token) {
@@ -63,6 +69,10 @@ export class AuthService {
     }
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.sub;
+  }
+
+  get jwt() {
+    return localStorage.getItem('jwt');
   }
 
   isTokenExpired(token: string): boolean {
