@@ -94,25 +94,25 @@ public class PostServiceImpl implements PostService {
             case TOP_TODAY -> {
                 Instant cutoff = LocalDateTime.now()
                         .minusDays(1)
-                        .atZone(ZoneId.systemDefault())
+                        .atZone(ZoneId  .systemDefault())
                         .toInstant();
                 return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
             }
-            case TOP_WEEK -> {
+            case TOP_THIS_WEEK -> {
                 Instant cutoff = LocalDateTime.now()
                         .minusWeeks(1)
                         .atZone(ZoneId.systemDefault())
                         .toInstant();
                 return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
             }
-            case TOP_MONTH -> {
+            case TOP_THIS_MONTH -> {
                 Instant cutoff = LocalDateTime.now()
                         .minusMonths(1)
                         .atZone(ZoneId.systemDefault())
                         .toInstant();
                 return postRepository.findPostsForUserFeedTop(userId, cutoff, pageable);
             }
-            case TOP_YEAR -> {
+            case TOP_THIS_YEAR -> {
                 Instant cutoff = LocalDateTime.now()
                         .minusYears(1)
                         .atZone(ZoneId.systemDefault())

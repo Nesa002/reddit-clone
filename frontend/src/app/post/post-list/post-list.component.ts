@@ -15,7 +15,10 @@ import { FilterType } from '../enum/post.filter.type';
   styleUrl: './post-list.component.css'
 })
 export class PostListComponent {
-  filter: FilterType = FilterType.TOP_TODAY;
+  filter: FilterType = FilterType.NEW;
+  isDropdownOpen = false;
+  filterOptions = Object.values(FilterType);
+
   posts: any[] = [];
   page = 0;
   size = 10;
@@ -25,12 +28,7 @@ export class PostListComponent {
   constructor(private postService: PostService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    const userId = this.authService.currentUserId();
-    if (userId) {
-      this.loadMorePosts(userId);
-    } else {
-      console.error('User ID not found in token');
-    }
+    this.loadMorePosts();
   }
 
   ngAfterViewInit(): void {
@@ -41,8 +39,14 @@ export class PostListComponent {
     window.removeEventListener('scroll', this.onScroll, true);
   }
 
-  loadMorePosts(userId: string): void {
+  loadMorePosts(): void {
     if (this.lastPage) return;
+
+    const userId = this.authService.currentUserId();
+    if (!userId) {
+      console.error('User ID not found in token');
+      return
+    }
 
     this.isLoading = true;
     this.postService.getPosts(userId, this.page, this.size, this.filter).subscribe({
@@ -56,6 +60,19 @@ export class PostListComponent {
         this.isLoading = false;
       }
     });
+  }
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectFilter(filter: FilterType) {
+    this.filter = filter;
+    this.isDropdownOpen = false;
+    this.posts = [];
+    this.lastPage = false;
+    this.page = 0;
+    this.loadMorePosts();
   }
 
   viewDetails(event: MouseEvent, id: number): void {
@@ -72,11 +89,16 @@ export class PostListComponent {
 
     if (scrollTop + viewportHeight >= fullHeight - 100 && !this.isLoading && !this.lastPage) {
       this.page++;
-      const userId = this.authService.currentUserId();
-      if (userId) {
-        this.loadMorePosts(userId);
-      }
+      this.loadMorePosts();
     } 
   }
-  
+  getLabel(filter: string): string {
+  return filter
+    .replace('TOP_', 'Top of ')
+    .replace('_', ' ')
+    .toLowerCase()
+    .replace(/\b\w/g, char => char.toUpperCase());
 }
+}
+
+
